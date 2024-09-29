@@ -1,0 +1,14 @@
+<div
+  matTooltipPosition="above"
+  [matTooltip]="viewerTooltip()"
+  [matTooltipDisabled]="!isViewerDisabled()"
+  [class.cursor-not-allowed]="isViewerDisabled()"
+>
+  <button
+    mat-raised-button
+    [disabled]="isViewerDisabled()"
+    (click)="clicked.emit()"
+  >
+    {{ title() }}
+  </button>
+</div>
