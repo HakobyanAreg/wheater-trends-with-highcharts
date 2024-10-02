@@ -1,4 +1,11 @@
-<div id="container" class="bg-white rounded-lg shadow p-4">
+<div id="container" class="flex flex-col items-end bg-white rounded-lg shadow p-4">
+  <mat-form-field>
+    <mat-label>Please select region</mat-label>
+    <mat-select [formControl]="chartTypeControl">
+      <mat-option value="line">Line Chart</mat-option>
+      <mat-option value="bar">Bar Chart</mat-option>
+    </mat-select>
+  </mat-form-field>
   <highcharts-chart
     [Highcharts]="Highcharts"
     [options]="chartOptions()"

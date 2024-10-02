@@ -2,26 +2,39 @@ import {ChangeDetectionStrategy, Component, computed, effect, input} from '@angu
 import * as Highcharts from 'highcharts';
 import {HighchartsChartModule} from "highcharts-angular";
 import {IData} from "../app.component";
-import {getRandomColor} from "../shared/utils/utils";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatOption} from "@angular/material/autocomplete";
+import {MatSelect} from "@angular/material/select";
+import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
+import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-chart-widget',
   standalone: true,
   templateUrl: './chart-widget.component.html',
-  imports: [HighchartsChartModule],
+  imports: [
+    HighchartsChartModule,
+    MatFormField,
+    MatLabel,
+    MatOption,
+    MatSelect,
+    ReactiveFormsModule
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChartWidgetComponent {
   Highcharts: typeof Highcharts = Highcharts;
 
-  chartType = input.required<string>();
+  chartTypeControl = new FormControl('line', [Validators.required]);
   chartTitle = input.required<string>();
   chartDate = input.required<string[]>();
   chartData = input.required<IData>();
 
+  chartTypeSignal = toSignal(this.chartTypeControl.valueChanges, {initialValue: 'line'})
+
   chartOptions = computed(() => ({
       chart: {
-        type: this.chartType(),
+        type: this.chartTypeSignal() || 'line',
         backgroundColor: '#f0f0f0'
       },
       title: {
@@ -29,22 +42,22 @@ export class ChartWidgetComponent {
       },
       series: [
         {
-          type: this.chartType(),
+          type: this.chartTypeSignal(),
           name: 'Temperature',
           data: this.chartData().temperature,
-          color: getRandomColor()
+          color: '#FF8C69'
         },
         {
-          type: this.chartType(),
+          type: this.chartTypeSignal(),
           name: 'Humidity',
           data: this.chartData().humidity,
-          color: getRandomColor()
+          color: '#8FCB9B'
         },
         {
-          type: this.chartType(),
+          type: this.chartTypeSignal(),
           name: 'Wind Speed',
           data: this.chartData().windSpeed,
-          color: getRandomColor()
+          color: '#7EC8E3'
         }
       ] as Highcharts.SeriesOptionsType[],
       xAxis: {

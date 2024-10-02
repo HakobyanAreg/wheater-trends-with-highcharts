@@ -36,16 +36,6 @@ export const regions: IRegion[] = [
   },
 ];
 
-export function getRandomChartType(): string {
-  const types = ['bar', 'line'];
-  return types[Math.floor(Math.random() * types.length)];
-}
-
-export function getRandomColor(): string {
-  const colors = ['#7cb5ec', '#434348', '#90ed7d', '#f7a35c'];
-  return colors[Math.floor(Math.random() * colors.length)];
-}
-
 export function generateDaysRange(startDate: string, endDate: string): string[] {
   const start = new Date(startDate);
   const end = new Date(endDate);
@@ -56,4 +46,4 @@ export function generateDaysRange(startDate: string, endDate: string): string[] 
   }
 
   return daysArray;
-};
+}

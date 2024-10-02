@@ -31,7 +31,6 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       @for (data of chartData; track data.title) {
         <app-chart-widget
-          [chartType]="data.type"
           [chartTitle]="data.title"
           [chartData]="data.data"
           [chartDate]="data.date"

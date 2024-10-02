@@ -9,7 +9,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {provideNativeDateAdapter} from "@angular/material/core";
 import {ChartWidgetComponent} from "./chart-widget/chart-widget.component";
 import {ButtonComponent} from "./shared/components/button/button.component";
-import {generateDaysRange, getRandomChartType, regions} from "./shared/utils/utils";
+import {generateDaysRange, regions} from "./shared/utils/utils";
 import {getWeatherData} from "./api/api";
 
 export interface IWeatherData {
@@ -60,7 +60,6 @@ export interface IData {
 }
 
 interface IChartData {
-  type: string;
   title: string;
   location: ILocation;
   date: string[];
@@ -110,7 +109,6 @@ export class AppComponent {
     const selectedRegions = this.chartConfigFormGroup.controls.regions.value;
 
     const chartDataConfig = selectedRegions?.map(region => ({
-      type: getRandomChartType(),
       title: region.name,
       date: generateDaysRange(formattedStartDate || '', formattedEndDate || ''),
       data: {} as IData,
